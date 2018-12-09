@@ -1,0 +1,50 @@
+<h2>Os Meus Produtos</h2>
+<!--
+<div>
+  <label>Prduct name:
+    <input #produtoName />
+  </label>
+  (click) passes input value to add() and then clears the input
+  <button (click)="add(produtoName.value); produtoName.value=''">
+    add
+  </button>
+</div>-->
+<ul class="produtos">
+  <li *ngFor="let produto of produtos">
+    <a [class.selected]="produto === produtos"
+       (click)="onSelect(produto)">
+      {{produto.nome.nome}}
+    </a>
+    <br />
+    <button class="delete" title="delete produto"
+            (click)="delete(produto)">
+      x
+    </button>
+  </li>
+</ul>
+
+<app-produto-detail [produto]="selectedProduto" [listaMateriais]="listaMateriaisProduto" [listaAcabamentos]="listaAcabamentosMaterial"></app-produto-detail>
+<button mat-raised-button (click)="estadoCriarProduto()">Criar Produto</button>
+<button mat-raised-button (click)="estadoEditarProduto()">Editar Produto</button>
+
+<div *ngIf="estadoCriarProduto">
+  <h2>Criar Produto</h2>
+  <div>
+    <label>
+      <input #nomeProdutoCriar matInput placeholder="Nome">
+    </label>
+  </div>
+
+  <button mat-button (click)="adicionarProduto(nomeProdutoCriar.value); nomeProdutoCriar.value='';">
+    Criar
+  </button>
+</div>
+
+<div *ngIf="estadoEditarProduto">
+  <h2>Editar Produto </h2>
+  <label>
+    <input #editarNomeProduto [(ngModel)]="nomeProdutoEditar" matInput placeholder="Novo nome">
+  </label>
+
+  <button mat-button (click)=atualizarProduto()>Editar Produto</button>
+</div>
